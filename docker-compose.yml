@@ -19,8 +19,8 @@ services:
     container_name: namenode
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
-      - ./scripts:/psut_scripts
-      - ./uploads:/urban/uploads
+      - ./scripts:/scripts
+      - ./uploads:/uploads
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -49,7 +49,9 @@ services:
       - hadoop.env
 
   nodemanager1:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop2.7.4-java8
+    build:
+      context: .
+      dockerfile: nodemanager/Dockerfile
     container_name: nodemanager
     environment:
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
