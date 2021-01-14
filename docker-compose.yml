@@ -1,16 +1,16 @@
 version: "3"
 
 services:
-  notebook:
+  pysparknotebook:
     build:
       context: .
-      dockerfile: notebook/Dockerfile
-    container_name: notebook
+      dockerfile: pysparknotebook/Dockerfile
+    container_name: pyspark_notebook
+    ports:
+    - 8888:8888
     volumes:
       - ./scripts:/home/jovyan/work
-      - ./uploads:/home/jovyan/work/uploads
-    ports:
-      - 8888:8888
+      - data_uploads:/home/jovyan/work/uploads
 
   namenode:
     build:
@@ -19,8 +19,9 @@ services:
     container_name: namenode
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
+      - hbase_trigger:/hbase_trigger
       - ./scripts:/scripts
-      - ./uploads:/uploads
+      - data_uploads:/uploads
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -69,11 +70,15 @@ services:
       - hadoop.env
 
   hbase:
-    image: bde2020/hbase-standalone:1.0.0-hbase1.2.6
+    build:
+      context: .
+      dockerfile: hbase/Dockerfile
     container_name: hbase
     volumes:
       - hbase_data:/hbase-data
       - hbase_zookeeper_data:/zookeeper-data
+      - hbase_trigger:/hbase_trigger
+      - ./scripts:/scripts
     ports:
       - 16000:16000
       - 16010:16010
@@ -94,3 +99,4 @@ volumes:
   hbase_data:
   hbase_zookeeper_data:
   data_uploads:
+  hbase_trigger:

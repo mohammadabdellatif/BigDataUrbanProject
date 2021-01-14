@@ -1,9 +1,11 @@
 FROM bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
-COPY --from=python:3 / /
-RUN apt-get update
+
+RUN apt-get update; exit 0
+RUN apt-get install python -y --force-yes
 RUN apt-get install inotify-tools -y
 RUN mkdir /uploads
-COPY namenode/run_listener.sh run_listener.sh
+RUN chmod 777 /uploads
+COPY namenode/run_all.sh run_all.sh
+RUN chmod a+x /run_all.sh
 
-#CMD ["nohup", "bash", "/run_listener.sh"]
-
+CMD /run_all.sh
