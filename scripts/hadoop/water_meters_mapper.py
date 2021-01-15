@@ -3,10 +3,10 @@
 import sys
 
 
-def map_line():
-    readings = fields[4].split('-')
-    return ','.join(fields[0:3]) + ',' + readings[0] + ',' + readings[1] + ',' + fields[5] + ',' + ','.join(
-        fields[9:11])
+def map_line(line_fields):
+    readings = line_fields[4].split('-')
+    return ','.join(line_fields[0:3]) + ',' + readings[0] + ',' + readings[1] + ','  + ','.join(
+        line_fields[9:11])
 
 
 # input comes from STDIN (standard input)
@@ -16,5 +16,5 @@ for line in sys.stdin:
     # split the line into words
     fields = line.split(",")
     # increase counters
-    new_line = map_line()
+    new_line = map_line(fields)
     print(new_line)
