@@ -19,7 +19,7 @@ def get_reading(facility_id):
 
 def map_line(line_fields):
     readings = get_reading(line_fields[FACILITYID])
-    mapped = [str(uuid.uuid1())]
+    mapped = ["-".join([line_fields[FACILITYID], readings[1]])]
     mapped.extend(line_fields[FACILITYID:FOLIO])
     mapped.extend(readings)
     mapped.extend(line_fields[LATITUDE:])
