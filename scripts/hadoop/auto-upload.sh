@@ -13,7 +13,6 @@ do
   hadoop jar /opt/hadoop-2.7.4/share/hadoop/tools/lib/hadoop-streaming-2.7.4.jar \
     -files /scripts/hadoop/water_meters_mapper.py,/scripts/hadoop/water_meters_reducer.py \
     -mapper water_meters_mapper.py \
-    -reducer water_meters_reducer.py \
     -input /uploads/${file} -output /output/${file}
   touch /hbase_trigger/${file}
   echo "================================"

@@ -8,5 +8,3 @@ COPY hbase/run_all.sh /run_all.sh
 RUN chmod a+x /import.sh
 RUN chmod a+x /run_all.sh
 CMD /run_all.sh
-#RUN echo "create 'hbase:labels', 'f'" | hbase shell -n
-#RUN echo "create 'water_meters',{NAME => 'basic'},{NAME => 'reading'},{NAME => 'location'}" | hbase shell -n
