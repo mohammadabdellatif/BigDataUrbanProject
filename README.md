@@ -117,4 +117,13 @@ The final table "water_meters" which hold the meters reading structure is:
 |location|HOUSE_NO,Latitude,Longitude,STREET_NO|Meter location|
 |reading|LAST_READ,LAST_READ_DT|Last reading value and date|
 
-
+### Map-Reduce Python scripts
+* [Mapper](/scripts/hadoop/water_meters_mapper.py) accepts each line in water meters
+csv file, read all line fields except: FOLIO, STATUS, GPS, IMAGE, and LOTLINK, adds the
+last reading value and last reading date from the REST web service by the facility ID, then
+generates the final line to be passed to the reduce job, it also add additional key that will
+be used as the key for the record in HBase which is the result of concatenation between
+FACILITYID and LAST_READ_DT, this will help in not inserting the first reading multiple times
+to the HBase table. 
+* [Reducer](/scripts/hadoop/water_meters_reducer.py): will pass the record as an
+output only if the Min-Max normalization equation against the reading falls within 0 and 1. 
