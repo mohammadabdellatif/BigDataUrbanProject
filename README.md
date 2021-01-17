@@ -126,4 +126,4 @@ be used as the key for the record in HBase which is the result of concatenation 
 FACILITYID and LAST_READ_DT, this will help in not inserting the first reading multiple times
 to the HBase table. 
 * [Reducer](/scripts/hadoop/water_meters_reducer.py): will pass the record as an
-output only if the Min-Max normalization equation against the reading falls within 0 and 1. 
+output only if the Min-Max normalization equation for the record reading falls within 0 and 1. 
