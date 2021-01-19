@@ -2,10 +2,10 @@
 
 import sys
 
-READING = 4
+READING = 5
 
-k_min = 10000
-k_max = 110000
+k_min =  3000
+k_max = 6000
 for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
