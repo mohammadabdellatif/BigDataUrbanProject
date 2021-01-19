@@ -1,5 +1,4 @@
 #!/usr/local/bin/python
-import math
 import sys
 
 import requests
